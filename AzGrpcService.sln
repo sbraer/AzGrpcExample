@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzGrpcService", "AzGrpcService\AzGrpcService.csproj", "{02E8DA94-FCE5-49F4-843D-A7C378020C79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extra", "Extra", "{085AA572-96C8-48D6-A637-AD055C8FF161}"
+	ProjectSection(SolutionItems) = preProject
+		Extra\info.txt = Extra\info.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzGrpcClient", "AzGrpcClient\AzGrpcClient.csproj", "{3CBFDDDC-EA5C-4E50-BB58-547FAD3E235A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02E8DA94-FCE5-49F4-843D-A7C378020C79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E8DA94-FCE5-49F4-843D-A7C378020C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E8DA94-FCE5-49F4-843D-A7C378020C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E8DA94-FCE5-49F4-843D-A7C378020C79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CBFDDDC-EA5C-4E50-BB58-547FAD3E235A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CBFDDDC-EA5C-4E50-BB58-547FAD3E235A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CBFDDDC-EA5C-4E50-BB58-547FAD3E235A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CBFDDDC-EA5C-4E50-BB58-547FAD3E235A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CB3C7D8-9D74-46EA-B871-4C02563F5A5D}
+	EndGlobalSection
+EndGlobal
