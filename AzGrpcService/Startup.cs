@@ -29,7 +29,7 @@ namespace AzGrpcService
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapGrpcService<GreeterService>();
+				endpoints.MapGrpcService<AzService>();
 
 				endpoints.MapGet("/", async context =>
 				{

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace AzGrpcService
 {
-	public class GreeterService : Greeter.GreeterBase
+	public class AzService : MyGrpcService.MyGrpcServiceBase
 	{
-		private readonly ILogger<GreeterService> _logger;
+		private readonly ILogger<AzService> _logger;
 		private readonly IHelper _helper;
 
-		public GreeterService(ILogger<GreeterService> logger, IHelper helper)
+		public AzService(ILogger<AzService> logger, IHelper helper)
 		{
 			_logger = logger;
 			_helper = helper;
@@ -20,12 +20,21 @@ namespace AzGrpcService
 
 		public override Task<Reply> GetMessage(Message request, ServerCallContext context)
 		{
-			return Task.FromResult(new Reply
+			_helper.Counter++;
+			if (_helper.Counter % 2 == 0)
 			{
-				Id = _helper.ProcessId,
-				Text="ciao",
-				Counter=++_helper.Counter
-			});
+				// https://grpc.io/docs/guides/error/
+				throw new RpcException(new Status(StatusCode.InvalidArgument, "Random Error"));
+			}
+			else
+			{
+				return Task.FromResult(new Reply
+				{
+					Id = _helper.ProcessId,
+					Text="ciao",
+					Counter=_helper.Counter
+				});
+			}
 		}
 	}
 }

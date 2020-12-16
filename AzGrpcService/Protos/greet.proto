@@ -3,20 +3,16 @@ syntax = "proto3";
 
 option csharp_namespace = "AzGrpcService";
 
-package greet;
+package azgrpc;
 
-// The greeting service definition.
-service Greeter {
-  // Sends a greeting
+service MyGrpcService {
   rpc GetMessage (Message) returns (Reply);
 }
 
-// The request message containing the user's name.
 message Message {
   string Text = 1;
 }
 
-// The response message containing the greetings.
 message Reply {
   string Id = 1;
   string Text = 2;

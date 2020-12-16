@@ -10,7 +10,7 @@ namespace AzGrpcClient
         {
             // The port number(5001) must match the port of the gRPC server.
             using var channel = GrpcChannel.ForAddress("http://localhost:5001");
-            var client = new Greeter.GreeterClient(channel);
+            var client = new MyGrpcService.MyGrpcServiceClient(channel);
             var reply = await client.GetMessageAsync(
                               new Message { Text = "GreeterClient" });
             Console.WriteLine("Greeting: " + reply.Id + " " + reply.Text+ " " + reply.Counter);
