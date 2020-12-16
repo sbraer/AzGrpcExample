@@ -1,10 +1,16 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Grpc.Core;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace AzGrpcService
 {
@@ -15,13 +21,61 @@ namespace AzGrpcService
 			CreateHostBuilder(args).Build().Run();
 		}
 
-		// Additional configuration is required to successfully run gRPC on macOS.
-		// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-		public static IHostBuilder CreateHostBuilder(string[] args) =>
-			Host.CreateDefaultBuilder(args)
-				.ConfigureWebHostDefaults(webBuilder =>
-				{
-					webBuilder.UseStartup<Startup>();
-				});
+		public static IHostBuilder CreateHostBuilder(string[] args)
+		{
+			string useCertificateString = Environment.GetEnvironmentVariable("USE_CERTIFICATE");
+			bool useCertificate;
+			if (bool.TryParse(useCertificateString, out bool value))
+			{
+				useCertificate = value;
+			}
+			else
+			{
+				useCertificate = false;
+			}
+
+			return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseKestrel(options =>
+                    {
+                        options.Listen(IPAddress.Any, 5001, listenOptions =>
+						{
+							if (useCertificate)
+							{
+								var serverCertificate = LoadCertificate();
+								listenOptions.UseHttps(serverCertificate);
+							}
+							else
+							{
+								listenOptions.Protocols = HttpProtocols.Http2;
+							}
+						});
+                    });
+        
+                    webBuilder.UseStartup<Startup>();
+                });
+		}
+
+        private static X509Certificate2 LoadCertificate()
+        {
+            string certificatePfx = "domain.name.pfx";
+
+            var assembly = typeof(Startup).GetTypeInfo().Assembly;
+            var embeddedFileProvider = new EmbeddedFileProvider(assembly, "GrpcGreeter");
+            var certificateFileInfo = embeddedFileProvider.GetFileInfo(certificatePfx);
+            using (var certificateStream = certificateFileInfo.CreateReadStream())
+            {
+                byte[] certificatePayload;
+                using (var memoryStream = new MemoryStream())
+                {
+                    certificateStream.CopyTo(memoryStream);
+                    certificatePayload = memoryStream.ToArray();
+                }
+
+                return new X509Certificate2(certificatePayload, "123456");
+            }
+        }
+
 	}
 }
