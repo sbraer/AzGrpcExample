@@ -59,23 +59,9 @@ namespace AzGrpcService
 
         private static X509Certificate2 LoadCertificate()
         {
-            string certificatePfx = "domain.name.pfx";
-
-            var assembly = typeof(Startup).GetTypeInfo().Assembly;
-            var embeddedFileProvider = new EmbeddedFileProvider(assembly, "GrpcGreeter");
-            var certificateFileInfo = embeddedFileProvider.GetFileInfo(certificatePfx);
-            using (var certificateStream = certificateFileInfo.CreateReadStream())
-            {
-                byte[] certificatePayload;
-                using (var memoryStream = new MemoryStream())
-                {
-                    certificateStream.CopyTo(memoryStream);
-                    certificatePayload = memoryStream.ToArray();
-                }
-
-                return new X509Certificate2(certificatePayload, "123456");
-            }
+			string certificatePfx = Environment.GetEnvironmentVariable("CERTIFICATE_PFX_File") ?? "domain.name.pfx";
+			byte[] certificatePayload = File.ReadAllBytes(certificatePfx);
+            return new X509Certificate2(certificatePayload, "123456");
         }
-
 	}
 }
