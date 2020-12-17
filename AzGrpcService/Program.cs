@@ -23,23 +23,15 @@ namespace AzGrpcService
 
 		public static IHostBuilder CreateHostBuilder(string[] args)
 		{
-			string useCertificateString = Environment.GetEnvironmentVariable("USE_CERTIFICATE");
-			bool useCertificate;
-			if (bool.TryParse(useCertificateString, out bool value))
-			{
-				useCertificate = value;
-			}
-			else
-			{
-				useCertificate = false;
-			}
+			int port = int.Parse(Environment.GetEnvironmentVariable("PORT") ?? "5001");
+			bool useCertificate = bool.Parse(Environment.GetEnvironmentVariable("USE_CERTIFICATE") ?? "false");
 
 			return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseKestrel(options =>
                     {
-                        options.Listen(IPAddress.Any, 5001, listenOptions =>
+                        options.Listen(IPAddress.Any, port, listenOptions =>
 						{
 							if (useCertificate)
 							{
