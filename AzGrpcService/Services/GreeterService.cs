@@ -21,7 +21,7 @@ namespace AzGrpcService
 		public override Task<Reply> GetMessage(Message request, ServerCallContext context)
 		{
 			_helper.Counter++;
-			if (_helper.Counter % 2 == 0)
+			if (_helper.Counter % 2 == 0 && _helper.RandomError)
 			{
 				// https://grpc.io/docs/guides/error/
 				throw new RpcException(new Status(StatusCode.InvalidArgument, "Random Error"));

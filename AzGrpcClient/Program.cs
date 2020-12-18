@@ -8,12 +8,31 @@ namespace AzGrpcClient
 	{
         static async Task Main(string[] args)
         {
-            // The port number(5001) must match the port of the gRPC server.
-            using var channel = GrpcChannel.ForAddress("http://localhost:5001");
-            var client = new MyGrpcService.MyGrpcServiceClient(channel);
-            var reply = await client.GetMessageAsync(
-                              new Message { Text = "GreeterClient" });
-            Console.WriteLine("Greeting: " + reply.Id + " " + reply.Text+ " " + reply.Counter);
+            #if (DEBUG)
+            int counter = 10;
+            #else
+            int counter = 99999;
+            #endif
+
+            string serverName = Environment.GetEnvironmentVariable("SERVER_NAME") ?? "http://localhost:5001";
+
+            for (int i = 0; i < counter; i++)
+            {
+                try
+                {
+                    using var channel = GrpcChannel.ForAddress(serverName);
+                    var client = new MyGrpcService.MyGrpcServiceClient(channel);
+                    var reply = await client.GetMessageAsync( new Message { Text = "GreeterClient" });
+                    Console.WriteLine("Greeting: " + reply.Id + " " + reply.Text+ " " + reply.Counter);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                await Task.Delay(500);
+            }
+
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
