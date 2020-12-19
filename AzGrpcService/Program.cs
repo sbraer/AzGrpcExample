@@ -51,7 +51,7 @@ namespace AzGrpcService
 
         private static X509Certificate2 LoadCertificate()
         {
-			string certificatePfx = Environment.GetEnvironmentVariable("CERTIFICATE_PFX_File") ?? "domain.name.pfx";
+			string certificatePfx = Environment.GetEnvironmentVariable("CERTIFICATE_PFX_FILE") ?? "domain.name.pfx";
 			byte[] certificatePayload = File.ReadAllBytes(certificatePfx);
             return new X509Certificate2(certificatePayload, "123456");
         }

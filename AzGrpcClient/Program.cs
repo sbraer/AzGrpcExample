@@ -22,8 +22,8 @@ namespace AzGrpcClient
                 {
                     using var channel = GrpcChannel.ForAddress(serverName);
                     var client = new MyGrpcService.MyGrpcServiceClient(channel);
-                    var reply = await client.GetMessageAsync( new Message { Text = "GreeterClient" });
-                    Console.WriteLine("Greeting: " + reply.Id + " " + reply.Text+ " " + reply.Counter);
+                    var reply = await client.GetMessageAsync( new Message { Text = $"Message {i}" });
+                    Console.WriteLine("From service: " + reply.Id + " " + reply.Text+ " " + reply.Counter);
                 }
                 catch (Exception ex)
                 {
