@@ -18,7 +18,7 @@ namespace AzGrpcService
         {
             ProcessId = Guid.NewGuid().ToString();
             Counter = 0;
-            RandomError = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("RANDOM_ERROR"));
+            RandomError = bool.Parse(Environment.GetEnvironmentVariable("RANDOM_ERROR") ?? "false");
         }
     }
 }

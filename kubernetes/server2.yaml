@@ -18,7 +18,7 @@ metadata:
   labels:
     app: webserver
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: webserver
@@ -35,11 +35,13 @@ spec:
         imagePullPolicy: Never #IfNotPresent #Always
         env:
         - name: USE_CERTIFICATE
-          value: "true"
+          value: "false"
         - name: CERTIFICATE_PFX_FILE
           value: /usr/local/share/ca-certificates/domain.name.pfx
         - name: RANDOM_ERROR
-          value: "false"
+          value: "true"
+        - name: PORT
+          value: "80"
         command:
         - bash
         - "-c"

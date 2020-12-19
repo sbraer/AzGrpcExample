@@ -24,14 +24,15 @@ namespace AzGrpcService
 			if (_helper.Counter % 2 == 0 && _helper.RandomError)
 			{
 				// https://grpc.io/docs/guides/error/
-				throw new RpcException(new Status(StatusCode.InvalidArgument, "Random Error"));
+				//throw new RpcException(new Status(StatusCode.InvalidArgument, "Random Error"));
+				throw new ArgumentException("Random Error");
 			}
 			else
 			{
 				return Task.FromResult(new Reply
 				{
 					Id = _helper.ProcessId,
-					Text="ciao",
+					Text=request.Text,
 					Counter=_helper.Counter
 				});
 			}

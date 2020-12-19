@@ -22,4 +22,4 @@ spec:
         imagePullPolicy: Never #IfNotPresent #Always
         env:
         - name: SERVER_NAME
-          value: "https://webserver:5001"
+          value: "http://webserver"

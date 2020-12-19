@@ -16,7 +16,7 @@ namespace AzGrpcClient
 
             string serverName = Environment.GetEnvironmentVariable("SERVER_NAME") ?? "http://localhost:5001";
 
-            for (int i = 0; i < counter; i++)
+            for (int i = 1; i < counter; i++)
             {
                 try
                 {
