@@ -15,8 +15,8 @@ WORKDIR /app
 LABEL maintainer="az"
 ENV ASPNETCORE_Environment=Production
 ENV ASPNETCORE_URLS="http://+:5000;https://+:5001"
-EXPOSE 5000/tcp
-EXPOSE 5001/tcp
+EXPOSE 80/tcp
+EXPOSE 443/tcp
 #ADD ca.crt /usr/local/share/ca-certificates/ca.crt
 #RUN chmod 644 /usr/local/share/ca-certificates/ca.crt && update-ca-certificates
 COPY --from=build /app/out ./

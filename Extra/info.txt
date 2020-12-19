@@ -6,3 +6,10 @@ kubectl create secret generic certificate-webserver --from-file=./ca.crt
 
 #Docker image build to minikube
 eval $(minikube docker-env)
+
+#Check retry
+linkerd routes deploy/webclient --to deploy/webserver -o wide
+
+#check connection
+linkerd tap deployment/webclient --namespace default --to deployment/webserver --to-namespace default --path /azgrpc.MyGrpcService/GetMessage
+linkerd -n default tap deploy
