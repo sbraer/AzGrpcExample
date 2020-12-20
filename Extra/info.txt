@@ -2,7 +2,7 @@
 https://docs.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-3.0&tabs=visual-studio
 
 #Certificate to secret
-kubectl create secret generic certificate-webserver --from-file=./ca.crt
+kubectl create secret generic certificate-webserver --from-file=./ca.crt --from-file=./domain.name.pfx
 
 #Docker image build to minikube
 eval $(minikube docker-env)
