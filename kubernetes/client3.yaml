@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpclient
+  labels:
+    app: httpclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpclient
+  template:
+    metadata:
+      labels:
+        app: httpclient
+      annotations:
+        #linkerd.io/inject: enabled
+    spec:
+      containers:
+      - name: httpclient
+        image: sbraer/httpclient
+        imagePullPolicy: Never #IfNotPresent #Always
+        env:
+        - name: SERVER_NAME
+          value: "http://httpserver"

@@ -14,6 +14,7 @@ namespace HttpClient
 			int counter = 9999999;
 #endif
 			string serverName = Environment.GetEnvironmentVariable("SERVER_NAME") ?? "http://localhost:54645/weatherforecast";
+			Console.WriteLine($"serverName = {serverName}");
 
 			using var client = new WebClient();
 			for (int i = 0; i < counter; i++)
