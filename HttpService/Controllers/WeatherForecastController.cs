@@ -27,7 +27,7 @@ namespace HttpService.Controllers
 		[HttpGet]
 		public ActionResult<IEnumerable<WeatherForecast>> Get()
 		{
-			if (_helper.RandomError && _helper.Counter++ % 3 == 0)
+			if (_helper.RandomError && _helper.Counter++ % 5 == 0)
 			{
 				return StatusCode(500);
 			}

@@ -1,12 +1,12 @@
 apiVersion: linkerd.io/v1alpha2
 kind: ServiceProfile
 metadata:
-  name: webserver.default.svc.cluster.local
+  name: httpserver.default.svc.cluster.local
   namespace: default
 spec:
   routes:
   - condition:
-      method: POST
+      method: GET
       pathRegex: /.*
-    name: POST ALL
+    name: GET ALL
     isRetryable: true

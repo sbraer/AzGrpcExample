@@ -29,7 +29,7 @@ spec:
       labels:
         app: httpserver
       annotations:
-        #linkerd.io/inject: enabled
+        linkerd.io/inject: enabled
     spec:
       containers:
       - name: webserver
@@ -38,3 +38,5 @@ spec:
         env:
         - name: RANDOM_ERROR
           value: "false"
+        - name: RANDOM_ERROR
+          value: "true"

@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: webserver
   annotations:
-    linkerd.io/inject: enabled
+    #linkerd.io/inject: enabled
 spec:
   selector:
     app: webserver
@@ -44,14 +44,14 @@ spec:
           value: "true"
         - name: PORT
           value: "80"
-        command:
-        - bash
-        - "-c"
-        - |
-          set ex
-          chmod 644 /usr/local/share/ca-certificates/ca.crt
-          update-ca-certificates
-          dotnet AzGrpcService.dll
+        #command:
+        #- bash
+        #- "-c"
+        #- |
+        #  set ex
+        #  chmod 644 /usr/local/share/ca-certificates/ca.crt
+        #  update-ca-certificates
+        #  dotnet AzGrpcService.dll
         volumeMounts:
         - name: certificates
           mountPath: /usr/local/share/ca-certificates

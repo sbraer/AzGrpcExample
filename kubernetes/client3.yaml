@@ -14,7 +14,7 @@ spec:
       labels:
         app: httpclient
       annotations:
-        #linkerd.io/inject: enabled
+        linkerd.io/inject: enabled
     spec:
       containers:
       - name: httpclient
@@ -22,4 +22,4 @@ spec:
         imagePullPolicy: Never #IfNotPresent #Always
         env:
         - name: SERVER_NAME
-          value: "http://httpserver"
+          value: "http://httpserver/weatherforecast"
