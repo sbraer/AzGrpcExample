@@ -37,6 +37,4 @@ spec:
         imagePullPolicy: Never #IfNotPresent #Always
         env:
         - name: RANDOM_ERROR
-          value: "false"
-        - name: RANDOM_ERROR
           value: "true"

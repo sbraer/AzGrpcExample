@@ -3,6 +3,7 @@ https://docs.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspn
 
 #Certificate to secret
 kubectl create secret generic certificate-webserver --from-file=./ca.crt --from-file=./domain.name.pfx
+openssl pkcs12 -export -out domain.name.pfx -inkey server.key -in server.crt
 
 #Docker image build to minikube
 eval $(minikube docker-env)
