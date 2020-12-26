@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webclient
+  labels:
+    app: webclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webclient
+  template:
+    metadata:
+      labels:
+        app: webclient
+      annotations:
+        linkerd.io/inject: enabled
+    spec:
+      containers:
+      - name: webclient
+        image: sbraer/client
+        imagePullPolicy: Never #IfNotPresent #Always
+        env:
+        - name: SERVER_NAME
+          value: "http://webserver"

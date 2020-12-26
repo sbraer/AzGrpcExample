@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver
+spec:
+  selector:
+    app: webserver
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  labels:
+    app: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+      - name: webserver
+        image: sbraer/server
+        imagePullPolicy: Never #IfNotPresent #Always
+        env:
+        - name: USE_CERTIFICATE
+          value: "false"
+        - name: CERTIFICATE_PFX_FILE
+          value: /usr/local/share/ca-certificates/domain.name.pfx
+        - name: RANDOM_ERROR
+          value: "false"
+        - name: PORT
+          value: "80"
+        volumeMounts:
+        - name: certificates
+          mountPath: /usr/local/share/ca-certificates
+      volumes:
+      - name: certificates
+        secret:
+          secretName: certificate-webserver
