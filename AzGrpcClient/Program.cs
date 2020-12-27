@@ -9,7 +9,7 @@ namespace AzGrpcClient
         static async Task Main(string[] args)
         {
             #if (DEBUG)
-            int counter = 10;
+            int counter = 15;
             #else
             int counter = 99999;
             #endif
