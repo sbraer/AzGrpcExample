@@ -18,8 +18,8 @@ spec:
     spec:
       containers:
       - name: webclient
-        image: sbraer/client
-        imagePullPolicy: Never #IfNotPresent #Always
+        image: sbraer/grpcclient:v1
+        imagePullPolicy: IfNotPresent
         env:
         - name: SERVER_NAME
           value: "http://webserver"

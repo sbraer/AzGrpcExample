@@ -18,8 +18,8 @@ spec:
     spec:
       containers:
       - name: httpclient
-        image: sbraer/httpclient
-        imagePullPolicy: Never #IfNotPresent #Always
+        image: sbraer/httpclient:v1
+        imagePullPolicy: IfNotPresent
         env:
         - name: SERVER_NAME
           value: "http://httpserver/weatherforecast"

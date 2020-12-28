@@ -33,8 +33,8 @@ spec:
     spec:
       containers:
       - name: webserver
-        image: sbraer/httpservice
-        imagePullPolicy: Never #IfNotPresent #Always
+        image: sbraer/httpservice:v1
+        imagePullPolicy: IfNotPresent
         env:
         - name: RANDOM_ERROR
           value: "true"

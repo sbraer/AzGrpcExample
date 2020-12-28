@@ -33,8 +33,8 @@ spec:
     spec:
       containers:
       - name: webserver
-        image: sbraer/server
-        imagePullPolicy: Never #IfNotPresent #Always
+        image: sbraer/grpcservice:v1
+        imagePullPolicy: IfNotPresent
         env:
         - name: USE_CERTIFICATE
           value: "false"
